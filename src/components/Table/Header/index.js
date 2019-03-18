@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux'
 import {ITEM_MODEL} from '../../../mock'
 import './styles.scss'
 import Filter from '../../Filter'
+import {resetFilters} from '../../../AC'
 
 
-const TableHeader = ({tableCellClassName}) => {
+const TableHeader = ({tableCellClassName, resetFilters}) => {
     const mapByItemModel = (callback) => {
         return Object.entries(ITEM_MODEL).map(callback)
     };
@@ -18,7 +20,8 @@ const TableHeader = ({tableCellClassName}) => {
         )
     }
 
-    const getTitle = ([fieldName, fieldTitle], index) => <td className={tableCellClassName} key={index}>{fieldTitle}</td>;
+    const getTitle = ([fieldName, fieldTitle], index) => <td className={tableCellClassName}
+                                                             key={index}>{fieldTitle}</td>;
 
     const columnTitles = mapByItemModel(getTitle);
     const filterList = mapByItemModel(getFilter);
@@ -27,7 +30,12 @@ const TableHeader = ({tableCellClassName}) => {
         <thead>
         <tr>
             <td className={'table-header__reset-container'}>
-                <button className={'table-header__reset'}>Reset filters</button>
+                <button
+                    onClick={resetFilters}
+                    className={'table-header__reset'}
+                >
+                    Reset filters
+                </button>
             </td>
         </tr>
         <tr>{columnTitles}</tr>
@@ -42,6 +50,11 @@ TableHeader.defaultProps = {
 
 TableHeader.propTypes = {
     tableCellClassName: PropTypes.string,
+    //from connect
+    resetFilters: PropTypes.func
 };
 
-export default TableHeader;
+export default connect(
+    null,
+    {resetFilters}
+)(TableHeader);

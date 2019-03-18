@@ -1,7 +1,7 @@
 import {Record} from 'immutable'
 import {convertArrayToImmutableEntities} from '../helpers/utils'
 import {ITEM_LIST} from '../mock'
-import {CONFIRM_CELL_CHANGES} from '../helpers/constants'
+import {CONFIRM_CELL_CHANGES, CHANGE_FILTER_VALUE, RESET_FILTERS} from '../helpers/constants'
 
 
 export const CreatureRecord = Record({
@@ -39,6 +39,10 @@ export default (state = new ReducerRecord(), action) => {
     const {type, payload} = action;
 
     switch (type) {
+        case RESET_FILTERS:
+            return state.set('filters', new FilterSortRecord());
+        case CHANGE_FILTER_VALUE:
+            return state.setIn(['filters', payload.fieldName], payload.filterValue);
         case CONFIRM_CELL_CHANGES:
             return state.setIn(['entities', payload.id, payload.field], payload.newValue);
         default:

@@ -8,3 +8,7 @@ export const recordListSelector = createSelector(entitiesSelector, entities => e
 export const filterSelector = createSelector(stateSelector, state => state.filters);
 export const fieldNameSelector = (_, props) => props.fieldName;
 export const filterValueSelector = createSelector(filterSelector, fieldNameSelector, (filters, fieldName) => filters[fieldName]);
+
+export const filteredRecordListSelector = createSelector(recordListSelector, filterSelector, (recordList, filters) => {
+
+});
