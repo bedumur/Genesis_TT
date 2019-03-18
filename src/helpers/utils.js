@@ -1,9 +1,6 @@
 import {Map, OrderedMap} from 'immutable'
 import {v4} from 'uuid'
 
-export const ASC_SORT_ORDER = 'asc';
-export const DESC_SORT_ORDER = 'desc';
-
 export function generateRandomId(){
     return v4()
 }

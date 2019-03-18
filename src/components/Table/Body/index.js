@@ -1,18 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ITEM_LIST} from '../../../mock'
 import './styles.scss'
 import TableCell from './Cell'
 
-const TableBody = props => {
+
+const TableBody = ({recordList}) => {
     function getRows() {
-        return ITEM_LIST.map(getRow)
+        return recordList.map(getRow)
     }
 
-    function getRow(item, index) {
+    function getRow(record) {
         return (
-            <tr key={index}>
-                {Object.keys(item).map((field, index) => <TableCell key={index} value={item[field]}/>)}
+            <tr key={record.uid}>
+                {Object.keys(record.toObject()).map((field, index) => {
+                    if (field !== 'uid') return <TableCell key={index} value={record[field]}/>
+                })}
             </tr>
         )
     }

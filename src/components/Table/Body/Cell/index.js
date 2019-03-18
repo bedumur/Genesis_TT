@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux'
+import {confirmCellChanges} from '../../../../AC'
 
 class TableCell extends Component {
     static defaultProps = {
@@ -9,7 +11,7 @@ class TableCell extends Component {
 
     static propTypes = {
         value: PropTypes.string,
-        onCellValueChange: PropTypes.func
+        confirmCellChanges: PropTypes.func
     };
 
     constructor(props) {
@@ -31,12 +33,12 @@ class TableCell extends Component {
     };
 
     onSave = () => {
-        const {onCellValueChange} = this.props;
+        const {confirmCellChanges} = this.props;
         const {inputValue} = this.state;
 
         this.finishEditing();
 
-        onCellValueChange(inputValue)
+        // confirmCellChanges(inputValue)
     };
 
     finishEditing = () => {
@@ -101,4 +103,4 @@ class TableCell extends Component {
 }
 
 
-export default TableCell;
+export default connect(null, {confirmCellChanges})(TableCell);

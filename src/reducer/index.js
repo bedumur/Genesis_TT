@@ -1,5 +1,5 @@
 import {Record} from 'immutable'
-import {convertArrayToImmutableEntities} from '../utils'
+import {convertArrayToImmutableEntities} from '../helpers/utils'
 import {ITEM_LIST} from '../mock'
 
 export const CreatureRecord = Record({

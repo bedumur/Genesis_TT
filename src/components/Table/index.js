@@ -9,10 +9,12 @@ class Table extends Component {
     static propTypes = {};
 
     render() {
+        const {recordList} = this.props;
+
         return (
             <table className={'main-table'}>
                 <TableHeader/>
-                <TableBody/>
+                <TableBody recordList={recordList}/>
                 <TableFooter/>
             </table>
         );
