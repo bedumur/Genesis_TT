@@ -283,5 +283,3 @@ export const ITEM_LIST = [
         "birth_year": "unknown",
         "gender": "male",
     }];
-
-export const TOTAL_COUNT = ITEM_LIST.length;

@@ -5,9 +5,9 @@ import './styles.scss'
 
 
 const TableHeader = props => {
-    function getFilters() {
-        return Object.values(ITEM_MODEL).map(getFilter)
-    }
+    const mapByItemModel = (callback) => () => {
+        return Object.values(ITEM_MODEL).map(callback)
+    };
 
     function getFilter(field, index) {
         return (
@@ -21,16 +21,20 @@ const TableHeader = props => {
         )
     }
 
+    const getTitle = (field, index) => <td key={index}>{field}</td>;
+
+    const getColumnTitles = mapByItemModel(getTitle);
+    const getFilters = mapByItemModel(getFilter);
+
     return (
         <thead>
         <tr>
-            <td>
+            <td className='table-header__reset-container'>
                 <button className={'table-header__reset'}>Reset filters</button>
             </td>
         </tr>
-        <tr>
-            {getFilters()}
-        </tr>
+        <tr>{getColumnTitles()}</tr>
+        <tr>{getFilters()}</tr>
         </thead>
     );
 };
