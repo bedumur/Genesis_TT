@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 class TableCell extends Component {
+    static defaultProps = {
+        value: 'No value',
+        tableCellClassName: 'main-table__cell'
+    };
+
     static propTypes = {
-        value: PropTypes.string.isRequired,
+        value: PropTypes.string,
         onCellValueChange: PropTypes.func
     };
 
@@ -69,10 +74,10 @@ class TableCell extends Component {
 
     render() {
         const {isEdit, inputValue} = this.state;
-        const {value} = this.props;
+        const {value, tableCellClassName} = this.props;
 
         const regularTableCell = (
-            <td className={'table-body__cell'}
+            <td className={tableCellClassName}
                 onDoubleClick={this.onCellDoubleClick}
             >
                 {value}
@@ -80,7 +85,7 @@ class TableCell extends Component {
         );
 
         const editTableCell = (
-            <td className={'table-body__cell'}>
+            <td className={tableCellClassName}>
                 <label>
                     <input
                         onChange={this.onInputValueChange}

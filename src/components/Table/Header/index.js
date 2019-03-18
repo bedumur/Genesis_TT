@@ -4,14 +4,14 @@ import {ITEM_MODEL} from '../../../mock'
 import './styles.scss'
 
 
-const TableHeader = props => {
-    const mapByItemModel = (callback) => () => {
+const TableHeader = ({tableCellClassName}) => {
+    const mapByItemModel = (callback) => {
         return Object.values(ITEM_MODEL).map(callback)
     };
 
     function getFilter(field, index) {
         return (
-            <td key={index}>
+            <td key={index} className={tableCellClassName}>
                 <label>
                     <input
                         type="text"
@@ -21,22 +21,26 @@ const TableHeader = props => {
         )
     }
 
-    const getTitle = (field, index) => <td key={index}>{field}</td>;
+    const getTitle = (field, index) => <td className={tableCellClassName} key={index}>{field}</td>;
 
-    const getColumnTitles = mapByItemModel(getTitle);
-    const getFilters = mapByItemModel(getFilter);
+    const columnTitles = mapByItemModel(getTitle);
+    const filterList = mapByItemModel(getFilter);
 
     return (
         <thead>
         <tr>
-            <td className='table-header__reset-container'>
+            <td className={'table-header__reset-container'}>
                 <button className={'table-header__reset'}>Reset filters</button>
             </td>
         </tr>
-        <tr>{getColumnTitles()}</tr>
-        <tr>{getFilters()}</tr>
+        <tr>{columnTitles}</tr>
+        <tr>{filterList}</tr>
         </thead>
     );
+};
+
+TableHeader.defaultProps = {
+    tableCellClassName: 'main-table__cell'
 };
 
 TableHeader.propTypes = {};
