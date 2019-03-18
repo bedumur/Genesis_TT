@@ -2,26 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {ITEM_MODEL} from '../../../mock'
 import './styles.scss'
+import Filter from '../../Filter'
 
 
 const TableHeader = ({tableCellClassName}) => {
     const mapByItemModel = (callback) => {
-        return Object.values(ITEM_MODEL).map(callback)
+        return Object.entries(ITEM_MODEL).map(callback)
     };
 
-    function getFilter(field, index) {
+    function getFilter([fieldName, fieldTitle], index) {
         return (
             <td key={index} className={tableCellClassName}>
-                <label>
-                    <input
-                        type="text"
-                        placeholder={field}/>
-                </label>
+                <Filter fieldName={fieldName} fieldTitle={fieldTitle}/>
             </td>
         )
     }
 
-    const getTitle = (field, index) => <td className={tableCellClassName} key={index}>{field}</td>;
+    const getTitle = ([fieldName, fieldTitle], index) => <td className={tableCellClassName} key={index}>{fieldTitle}</td>;
 
     const columnTitles = mapByItemModel(getTitle);
     const filterList = mapByItemModel(getFilter);
@@ -43,6 +40,8 @@ TableHeader.defaultProps = {
     tableCellClassName: 'main-table__cell'
 };
 
-TableHeader.propTypes = {};
+TableHeader.propTypes = {
+    tableCellClassName: PropTypes.string,
+};
 
 export default TableHeader;

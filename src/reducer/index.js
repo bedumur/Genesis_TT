@@ -18,14 +18,14 @@ export const CreatureRecord = Record({
 
 // в случае отказа от возможности сортировать и фильтровать по отдельному полю
 const FilterSortRecord = Record({
-    name: null,
-    height: null,
-    mass: null,
-    hair_color: null,
-    skin_color: null,
-    eye_color: null,
-    birth_year: null,
-    gender: null
+    name: '',
+    height: '',
+    mass: '',
+    hair_color: '',
+    skin_color: '',
+    eye_color: '',
+    birth_year: '',
+    gender: ''
 });
 
 const ReducerRecord = Record({
@@ -38,10 +38,10 @@ const ReducerRecord = Record({
 export default (state = new ReducerRecord(), action) => {
     const {type, payload} = action;
 
-    switch(type){
+    switch (type) {
         case CONFIRM_CELL_CHANGES:
             return state.setIn(['entities', payload.id, payload.field], payload.newValue);
+        default:
+            return state
     }
-
-    return state
 }

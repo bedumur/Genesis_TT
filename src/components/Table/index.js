@@ -6,7 +6,9 @@ import TableFooter from './Footer'
 import './styles.scss'
 
 class Table extends Component {
-    static propTypes = {};
+    static propTypes = {
+        recordList: PropTypes.array.isRequired
+    };
 
     render() {
         const {recordList} = this.props;

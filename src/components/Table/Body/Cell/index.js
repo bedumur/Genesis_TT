@@ -14,6 +14,7 @@ class TableCell extends Component {
         id: PropTypes.string.isRequired,
         field: PropTypes.string.isRequired,
         value: PropTypes.string,
+        //from connect
         confirmCellChanges: PropTypes.func
     };
 

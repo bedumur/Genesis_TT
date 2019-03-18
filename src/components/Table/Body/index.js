@@ -13,7 +13,9 @@ const TableBody = ({recordList}) => {
         return (
             <tr key={record.uid}>
                 {Object.keys(record.toObject()).map((field, index) => {
-                    if (field !== 'uid') return <TableCell key={index} id={record.uid} field={field} value={record[field]}/>
+                    return field !== 'uid'
+                        ? <TableCell key={index} id={record.uid} field={field} value={record[field]}/>
+                        : null
                 })}
             </tr>
         )
@@ -26,6 +28,8 @@ const TableBody = ({recordList}) => {
     );
 };
 
-TableBody.propTypes = {};
+TableBody.propTypes = {
+    recordList: PropTypes.array.isRequired
+};
 
 export default TableBody;
