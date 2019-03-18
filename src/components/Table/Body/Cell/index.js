@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
 import {confirmCellChanges} from '../../../../AC'
 
+
 class TableCell extends Component {
     static defaultProps = {
         value: 'No value',
@@ -10,6 +11,8 @@ class TableCell extends Component {
     };
 
     static propTypes = {
+        id: PropTypes.string.isRequired,
+        field: PropTypes.string.isRequired,
         value: PropTypes.string,
         confirmCellChanges: PropTypes.func
     };
@@ -33,12 +36,12 @@ class TableCell extends Component {
     };
 
     onSave = () => {
-        const {confirmCellChanges} = this.props;
+        const {confirmCellChanges, id, field} = this.props;
         const {inputValue} = this.state;
 
         this.finishEditing();
 
-        // confirmCellChanges(inputValue)
+        confirmCellChanges(id, field, inputValue)
     };
 
     finishEditing = () => {
@@ -103,4 +106,7 @@ class TableCell extends Component {
 }
 
 
-export default connect(null, {confirmCellChanges})(TableCell);
+export default connect(
+    null,
+    {confirmCellChanges}
+)(TableCell);

@@ -13,7 +13,7 @@ const TableBody = ({recordList}) => {
         return (
             <tr key={record.uid}>
                 {Object.keys(record.toObject()).map((field, index) => {
-                    if (field !== 'uid') return <TableCell key={index} value={record[field]}/>
+                    if (field !== 'uid') return <TableCell key={index} id={record.uid} field={field} value={record[field]}/>
                 })}
             </tr>
         )
