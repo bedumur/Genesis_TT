@@ -1,8 +1,11 @@
 import {createSelector} from 'reselect'
 
+function toLowerCaseAndTrim(val){
+    return val.toLowerCase().trim();
+}
 
 function matchValues(a, b) {
-    return ~a.toLowerCase().indexOf(b.toLowerCase())
+    return ~toLowerCaseAndTrim(a).indexOf(toLowerCaseAndTrim(b))
 }
 
 export const stateSelector = state => state;

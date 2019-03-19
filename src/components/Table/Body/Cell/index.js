@@ -56,7 +56,7 @@ class TableCell extends Component {
         const {value} = this.props;
 
         const saveBtn = (
-            <button onClick={this.onSave}>
+            <button type={'submit'}>
                 Save
             </button>
         );
@@ -92,13 +92,15 @@ class TableCell extends Component {
 
         const editTableCell = (
             <td className={tableCellClassName}>
-                <label>
-                    <input
-                        onChange={this.onInputValueChange}
-                        type="text"
-                        value={inputValue}/>
-                </label>
-                {this.getCancelOrSaveBtn()}
+                <form onSubmit={this.onSave}>
+                    <label>
+                        <input
+                            onChange={this.onInputValueChange}
+                            type="text"
+                            value={inputValue}/>
+                    </label>
+                    {this.getCancelOrSaveBtn()}
+                </form>
             </td>
         );
 
