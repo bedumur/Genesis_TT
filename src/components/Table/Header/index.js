@@ -12,16 +12,20 @@ const TableHeader = ({tableCellClassName, resetFilters}) => {
         return Object.entries(ITEM_MODEL).map(callback)
     };
 
-    function getFilter([fieldName, fieldTitle], index) {
+    function getFilter([fieldKey, fieldTitle], index) {
         return (
             <td key={index} className={tableCellClassName}>
-                <Filter fieldName={fieldName} fieldTitle={fieldTitle}/>
+                <Filter fieldKey={fieldKey} fieldTitle={fieldTitle}/>
             </td>
         )
     }
 
-    const getTitle = ([fieldName, fieldTitle], index) => <td className={tableCellClassName}
-                                                             key={index}>{fieldTitle}</td>;
+    const getTitle = ([fieldName, fieldTitle], index) =>
+        <td className={tableCellClassName}
+            key={index}
+        >
+            {fieldTitle}
+        </td>;
 
     const columnTitles = mapByItemModel(getTitle);
     const filterList = mapByItemModel(getFilter);
