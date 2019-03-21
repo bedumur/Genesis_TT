@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faSortAlphaUp, faSortAlphaDown} from '@fortawesome/free-solid-svg-icons'
-import {filterValueSelector, sortOrderItemSelector} from '../../reselect'
+import {filterValueSelector, sortDataSelector} from '../../reselect'
 import {changeFilterValue, changeSortOrder} from '../../AC'
 import {ASC_SORT_ORDER, DESC_SORT_ORDER} from '../../helpers/constants'
 
@@ -15,7 +15,9 @@ const Filter = ({fieldKey, fieldTitle, ...connectOptions}) => {
     const onChangeSortOrder = () => connectOptions.changeSortOrder(fieldKey);
 
     function getSortOrderIcon() {
-        switch (connectOptions.sortOrder) {
+        if (fieldKey !== connectOptions.sortData.fieldKey) return faSortAlphaUp;
+
+        switch (connectOptions.sortData.sortOrder) {
             case ASC_SORT_ORDER:
                 return faSortAlphaDown;
             case DESC_SORT_ORDER:
@@ -49,14 +51,17 @@ Filter.propTypes = {
     //from connect
     changeFilterValue: PropTypes.func,
     changeSortOrder: PropTypes.func,
-    sortOrder: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    sortData: PropTypes.shape({
+        fieldKey: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+        sortOrder: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    }),
 };
 
 export default connect(
     (state, props) => ({
         value: filterValueSelector(state, props),
-        sortOrder: sortOrderItemSelector(state, props)
+        sortData: sortDataSelector(state, props)
     }),
     {changeFilterValue, changeSortOrder}
 )(Filter);

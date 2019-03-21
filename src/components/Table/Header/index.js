@@ -4,10 +4,10 @@ import {connect} from 'react-redux'
 import {ITEM_MODEL} from '../../../mock'
 import './styles.scss'
 import Filter from '../../Filter'
-import {resetFilters} from '../../../AC'
+import {resetFilters, resetSorting} from '../../../AC'
 
 
-const TableHeader = ({tableCellClassName, resetFilters}) => {
+const TableHeader = ({tableCellClassName, resetSortingBtnTitle, resetFilterBtnTitle, ...connectOptions}) => {
     const mapByItemModel = (callback) => {
         return Object.entries(ITEM_MODEL).map(callback)
     };
@@ -35,10 +35,17 @@ const TableHeader = ({tableCellClassName, resetFilters}) => {
         <tr>
             <td className={'table-header__reset-container'}>
                 <button
-                    onClick={resetFilters}
+                    onClick={connectOptions.resetFilters}
                     className={'table-header__reset'}
                 >
-                    Reset filters
+                    {resetFilterBtnTitle}
+                </button>
+                <button
+                    style={{marginLeft: '1rem'}}
+                    onClick={connectOptions.resetSorting}
+                    className={'table-header__reset'}
+                >
+                    {resetSortingBtnTitle}
                 </button>
             </td>
         </tr>
@@ -49,16 +56,21 @@ const TableHeader = ({tableCellClassName, resetFilters}) => {
 };
 
 TableHeader.defaultProps = {
-    tableCellClassName: 'main-table__cell'
+    tableCellClassName: 'main-table__cell',
+    resetFilterBtnTitle: 'Reset filters',
+    resetSortingBtnTitle: 'Reset sorting'
 };
 
 TableHeader.propTypes = {
     tableCellClassName: PropTypes.string,
+    resetFilterBtnTitle: PropTypes.string,
+    resetSortingBtnTitle: PropTypes.string,
     //from connect
-    resetFilters: PropTypes.func
+    resetFilters: PropTypes.func,
+    resetSorting: PropTypes.func
 };
 
 export default connect(
     null,
-    {resetFilters}
+    {resetFilters, resetSorting}
 )(TableHeader);

@@ -2,7 +2,8 @@ import {
     CONFIRM_CELL_CHANGES,
     CHANGE_FILTER_VALUE,
     RESET_FILTERS,
-    CHANGE_SORT_ORDER
+    CHANGE_SORT_ORDER,
+    RESET_SORTING
 } from '../helpers/constants'
 
 
@@ -30,5 +31,11 @@ export function changeSortOrder(fieldKey) {
     return {
         type: CHANGE_SORT_ORDER,
         payload: {fieldKey}
+    }
+}
+
+export function resetSorting(){
+    return {
+        type: RESET_SORTING
     }
 }

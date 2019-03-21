@@ -22,8 +22,8 @@ function filterRecordList(recordList, filters) {
     return res
 }
 
-const sortEntities = (sortOrder, fieldKey) => (a, b)  => {
-    switch(sortOrder){
+const sortEntities = (fieldKey, sortOrder) => (a, b) => {
+    switch (sortOrder) {
         case ASC_SORT_ORDER:
             return a[fieldKey].localeCompare(b[fieldKey]);
         case DESC_SORT_ORDER:
@@ -33,20 +33,12 @@ const sortEntities = (sortOrder, fieldKey) => (a, b)  => {
     }
 };
 
-function sortRecordList(recordList, sortOrders) {
-    let res = [...recordList];
+function sortRecordList(recordList, {fieldKey, sortOrder}) {
+    if (!fieldKey || !sortOrder) return recordList;
 
-    const objectSortOrders = sortOrders.toObject();
+    const res = [...recordList];
 
-    for (const fieldKey in objectSortOrders) {
-        if (!objectSortOrders.hasOwnProperty(fieldKey) || !objectSortOrders[fieldKey]) continue;
-
-        const sortOrder = objectSortOrders[fieldKey];
-
-        res = res.sort(sortEntities(sortOrder, fieldKey))
-    }
-
-    return res
+    return [...res.sort(sortEntities(fieldKey, sortOrder))]
 }
 
 export const fieldKeySelector = (_, props) => props.fieldKey;
@@ -57,8 +49,8 @@ export const recordListSelector = createSelector(entitiesSelector, entities => e
 
 export const filterSelector = createSelector(stateSelector, state => state.filters);
 export const filterValueSelector = createSelector(filterSelector, fieldKeySelector, (filters, fieldKey) => filters[fieldKey]);
-export const filteredRecordListSelector = createSelector(recordListSelector, filterSelector, filterRecordList);
 
-export const sortOrderListSelector = createSelector(stateSelector, state => state.sortOrders);
-export const sortOrderItemSelector = createSelector(sortOrderListSelector, fieldKeySelector, (sortOrders, fieldKey) => sortOrders[fieldKey]);
-export const sortedFilteredRecordListSelector = createSelector(filteredRecordListSelector, sortOrderListSelector, sortRecordList);
+export const sortDataSelector = createSelector(stateSelector, state => state.sorting);
+
+export const filteredRecordListSelector = createSelector(recordListSelector, filterSelector, filterRecordList);
+export const sortedFilteredRecordListSelector = createSelector(filteredRecordListSelector, sortDataSelector, sortRecordList);

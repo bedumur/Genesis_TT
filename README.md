@@ -12,6 +12,5 @@
 * add type to filtrating
 * add multi select to fields with multi values
 * add throttling to filtration
-* disable field by field sorting
 * disabled multi editing
 * styling table
