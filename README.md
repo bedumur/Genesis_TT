@@ -14,3 +14,6 @@
 * add throttling to filtration
 * disabled multi editing
 * styling table
+* add global filter
+* add display configuration by columns 
+* add items per page choice

@@ -3,7 +3,8 @@ import {
     CHANGE_FILTER_VALUE,
     RESET_FILTERS,
     CHANGE_SORT_ORDER,
-    RESET_SORTING
+    RESET_SORTING,
+    CHANGE_PAGE
 } from '../helpers/constants'
 
 
@@ -37,5 +38,12 @@ export function changeSortOrder(fieldKey) {
 export function resetSorting(){
     return {
         type: RESET_SORTING
+    }
+}
+
+export function changePage(page){
+    return {
+        type: CHANGE_PAGE,
+        payload: {page}
     }
 }

@@ -7,6 +7,7 @@ import {
     RESET_FILTERS,
     CHANGE_SORT_ORDER,
     RESET_SORTING,
+    CHANGE_PAGE,
     SORT_ORDERS_LIST
 } from '../helpers/constants'
 
@@ -38,11 +39,16 @@ const SortRecord = Record({
     sortOrder: null
 });
 
+const PaginationRecord = Record({
+    currentPage: 1,
+    itemsPerPage: 18
+});
+
 const ReducerRecord = Record({
     entities: convertArrayToImmutableEntities(ITEM_LIST, CreatureRecord),
     filters: new FilterRecord(),
     sorting: new SortRecord(),
-    currentPage: 1
+    pagination: new PaginationRecord()
 });
 
 let sortOrderIndex = 0;
@@ -51,6 +57,8 @@ export default (state = new ReducerRecord(), action) => {
     const {type, payload} = action;
 
     switch (type) {
+        case CHANGE_PAGE:
+            return state.setIn(['pagination', 'currentPage'], payload.page);
         case RESET_SORTING:
             return state.set('sorting', new SortRecord());
         case CHANGE_SORT_ORDER:

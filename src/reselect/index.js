@@ -41,6 +41,10 @@ function sortRecordList(recordList, {fieldKey, sortOrder}) {
     return [...res.sort(sortEntities(fieldKey, sortOrder))]
 }
 
+function paginateRecordList(recordList, {currentPage, itemsPerPage}){
+    return recordList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+}
+
 export const fieldKeySelector = (_, props) => props.fieldKey;
 
 export const stateSelector = state => state;
@@ -51,6 +55,9 @@ export const filterSelector = createSelector(stateSelector, state => state.filte
 export const filterValueSelector = createSelector(filterSelector, fieldKeySelector, (filters, fieldKey) => filters[fieldKey]);
 
 export const sortDataSelector = createSelector(stateSelector, state => state.sorting);
+export const paginationSelector = createSelector(stateSelector, state => state.pagination);
 
 export const filteredRecordListSelector = createSelector(recordListSelector, filterSelector, filterRecordList);
 export const sortedFilteredRecordListSelector = createSelector(filteredRecordListSelector, sortDataSelector, sortRecordList);
+export const paginatedSortedFilteredRecordListSelector = createSelector(sortedFilteredRecordListSelector, paginationSelector, paginateRecordList);
+
