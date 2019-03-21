@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import './styles.scss'
-import {paginatedSortedFilteredRecordListSelector} from '../../reselect'
+import {sortedFilteredPaginatedRecordListSelector} from '../../reselect'
 import Table from '../Table'
 
 
@@ -23,5 +23,5 @@ class App extends Component {
 }
 
 export default connect(state => ({
-    recordList: paginatedSortedFilteredRecordListSelector(state)
+    recordList: sortedFilteredPaginatedRecordListSelector(state)
 }))(App);

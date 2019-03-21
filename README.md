@@ -6,8 +6,7 @@
 * Cell editing
 * Pagination
 
-## To do list
-* pagination 
+## To do list 
 * add types to editing
 * add type to filtrating
 * add multi select to fields with multi values

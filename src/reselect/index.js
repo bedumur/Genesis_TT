@@ -57,7 +57,7 @@ export const filterValueSelector = createSelector(filterSelector, fieldKeySelect
 export const sortDataSelector = createSelector(stateSelector, state => state.sorting);
 export const paginationSelector = createSelector(stateSelector, state => state.pagination);
 
-export const filteredRecordListSelector = createSelector(recordListSelector, filterSelector, filterRecordList);
-export const sortedFilteredRecordListSelector = createSelector(filteredRecordListSelector, sortDataSelector, sortRecordList);
-export const paginatedSortedFilteredRecordListSelector = createSelector(sortedFilteredRecordListSelector, paginationSelector, paginateRecordList);
+export const paginatedRecordListSelected = createSelector(recordListSelector, paginationSelector, paginateRecordList);
+export const filteredPaginatedRecordListSelector = createSelector(paginatedRecordListSelected, filterSelector, filterRecordList);
+export const sortedFilteredPaginatedRecordListSelector = createSelector(filteredPaginatedRecordListSelector, sortDataSelector, sortRecordList);
 
