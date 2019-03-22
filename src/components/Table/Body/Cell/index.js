@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
-import {confirmCellChanges} from '../../../../AC'
+import {confirmCellChanges, startCellEditing, cancelCellEditing} from '../../../../AC'
+import {cellEditingSelector} from '../../../../reselect'
 
 
 class TableCell extends Component {
@@ -12,48 +13,46 @@ class TableCell extends Component {
 
     static propTypes = {
         id: PropTypes.string.isRequired,
-        field: PropTypes.string.isRequired,
+        fieldKey: PropTypes.string.isRequired,
         value: PropTypes.string,
         //from connect
-        confirmCellChanges: PropTypes.func
+        confirmCellChanges: PropTypes.func,
+        startCellEditing: PropTypes.func,
+        cancelCellEditing: PropTypes.func,
+        isEdit: PropTypes.bool
     };
 
     constructor(props) {
         super(props);
 
         this.state = {
-            isEdit: false,
             inputValue: ''
         }
     }
 
     onCellDoubleClick = () => {
-        const {value} = this.props;
+        const {id, fieldKey, value, startCellEditing} = this.props;
+
+        startCellEditing(id, fieldKey);
 
         this.setState({
-            isEdit: true,
             inputValue: value
         })
     };
 
     onSave = () => {
-        const {confirmCellChanges, id, field} = this.props;
+        const {id, fieldKey, cancelCellEditing, confirmCellChanges} = this.props;
         const {inputValue} = this.state;
 
-        this.finishEditing();
+        cancelCellEditing();
 
-        confirmCellChanges(id, field, inputValue)
+        confirmCellChanges(id, fieldKey, inputValue)
     };
 
-    finishEditing = () => {
-        this.setState({
-            isEdit: false
-        })
-    };
 
     getCancelOrSaveBtn() {
         const {inputValue} = this.state;
-        const {value} = this.props;
+        const {value, cancelCellEditing} = this.props;
 
         const saveBtn = (
             <button type={'submit'}>
@@ -62,7 +61,7 @@ class TableCell extends Component {
         );
 
         const cancelBtn = (
-            <button onClick={this.finishEditing}>
+            <button onClick={cancelCellEditing}>
                 Cancel
             </button>
         );
@@ -79,8 +78,8 @@ class TableCell extends Component {
     };
 
     render() {
-        const {isEdit, inputValue} = this.state;
-        const {value, tableCellClassName} = this.props;
+        const {inputValue} = this.state;
+        const {value, tableCellClassName, isEdit} = this.props;
 
         const regularTableCell = (
             <td className={tableCellClassName}
@@ -109,7 +108,8 @@ class TableCell extends Component {
 }
 
 
-export default connect(
-    null,
-    {confirmCellChanges}
+export default connect((state, props) => ({
+        isEdit: cellEditingSelector(state, props)
+    }),
+    {confirmCellChanges, startCellEditing, cancelCellEditing}
 )(TableCell);

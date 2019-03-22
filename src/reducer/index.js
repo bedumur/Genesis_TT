@@ -1,7 +1,9 @@
-import {Record} from 'immutable'
+import {Record, Map} from 'immutable'
 import {convertArrayToImmutableEntities} from '../helpers/utils'
 import {ITEM_LIST} from '../mock'
 import {
+    START_CELL_EDITING,
+    CANCEL_CELL_EDITING,
     CONFIRM_CELL_CHANGES,
     CHANGE_FILTER_VALUE,
     RESET_FILTERS,
@@ -10,6 +12,7 @@ import {
     CHANGE_PAGE,
     SORT_ORDERS_LIST
 } from '../helpers/constants'
+
 
 export const CreatureRecord = Record({
     uid: null,
@@ -39,16 +42,22 @@ const SortRecord = Record({
     sortOrder: null
 });
 
-const PaginationRecord = Record({
+const paginationMap = Map({
     currentPage: 1,
     itemsPerPage: 18
+});
+
+const editingMap = Map({
+    fieldKey: null,
+    recordId: null,
 });
 
 const ReducerRecord = Record({
     entities: convertArrayToImmutableEntities(ITEM_LIST, CreatureRecord),
     filters: new FilterRecord(),
     sorting: new SortRecord(),
-    pagination: new PaginationRecord()
+    pagination: paginationMap,
+    editing: editingMap
 });
 
 let sortOrderIndex = 0;
@@ -57,6 +66,12 @@ export default (state = new ReducerRecord(), action) => {
     const {type, payload} = action;
 
     switch (type) {
+        case START_CELL_EDITING:
+            return state
+                .setIn(['editing', 'fieldKey'], payload.fieldKey)
+                .setIn(['editing', 'recordId'], payload.recordId);
+        case CANCEL_CELL_EDITING:
+            return state.set('editing', editingMap);
         case CHANGE_PAGE:
             return state.setIn(['pagination', 'currentPage'], payload.page);
         case RESET_SORTING:

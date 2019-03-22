@@ -1,12 +1,27 @@
 import {
+    START_CELL_EDITING,
+    CANCEL_CELL_EDITING,
     CONFIRM_CELL_CHANGES,
     CHANGE_FILTER_VALUE,
     RESET_FILTERS,
     CHANGE_SORT_ORDER,
     RESET_SORTING,
-    CHANGE_PAGE
+    CHANGE_PAGE,
 } from '../helpers/constants'
 
+
+export function startCellEditing(recordId, fieldKey){
+    return {
+        type: START_CELL_EDITING,
+        payload: {recordId, fieldKey}
+    }
+}
+
+export function cancelCellEditing(){
+    return {
+        type: CANCEL_CELL_EDITING
+    }
+}
 
 export function confirmCellChanges(id, field, newValue) {
     return {

@@ -10,8 +10,6 @@ const TableFooter = ({totalItemCount, changePage, paginationData: {itemsPerPage,
 
     const onPageChange = (page) => () => changePage(page);
 
-    console.log(changePage);
-
     function getPagination() {
         let pageList = [];
 

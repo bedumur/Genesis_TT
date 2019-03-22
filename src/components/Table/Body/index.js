@@ -12,9 +12,9 @@ const TableBody = ({recordList}) => {
     function getRow(record) {
         return (
             <tr key={record.uid}>
-                {Object.keys(record.toObject()).map((field, index) => {
-                    return field !== 'uid'
-                        ? <TableCell key={index} id={record.uid} field={field} value={record[field]}/>
+                {Object.keys(record.toObject()).map((fieldKey, index) => {
+                    return fieldKey !== 'uid'
+                        ? <TableCell key={index} id={record.uid} fieldKey={fieldKey} value={record[fieldKey]}/>
                         : null
                 })}
             </tr>

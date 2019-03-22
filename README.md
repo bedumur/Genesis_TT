@@ -8,11 +8,12 @@
 
 ## To do list 
 * add types to editing
-* add type to filtrating
+* add types to filtrating
 * add multi select to fields with multi values
 * add throttling to filtration
-* disabled multi editing
 * styling table
 * add global filter
 * add display configuration by columns 
 * add items per page choice
+* actions optimization
+* add validation

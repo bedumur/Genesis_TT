@@ -45,6 +45,11 @@ function paginateRecordList(recordList, {currentPage, itemsPerPage}){
     return recordList.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
 }
 
+function matchEdit(editing, fieldKey, recordId){
+    return editing.get('fieldKey') === fieldKey && editing.get('recordId') === recordId
+}
+
+export const rowIdSelector = (_, props) => props.id;
 export const fieldKeySelector = (_, props) => props.fieldKey;
 
 export const stateSelector = state => state;
@@ -55,7 +60,10 @@ export const filterSelector = createSelector(stateSelector, state => state.filte
 export const filterValueSelector = createSelector(filterSelector, fieldKeySelector, (filters, fieldKey) => filters[fieldKey]);
 
 export const sortDataSelector = createSelector(stateSelector, state => state.sorting);
-export const paginationSelector = createSelector(stateSelector, state => state.pagination);
+export const paginationSelector = createSelector(stateSelector, state => state.pagination.toObject());
+
+export const editingSelector = createSelector(stateSelector, state => state.editing);
+export const cellEditingSelector = createSelector(editingSelector, fieldKeySelector, rowIdSelector, matchEdit);
 
 export const paginatedRecordListSelected = createSelector(recordListSelector, paginationSelector, paginateRecordList);
 export const filteredPaginatedRecordListSelector = createSelector(paginatedRecordListSelected, filterSelector, filterRecordList);
