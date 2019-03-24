@@ -7,6 +7,7 @@ import {
     CHANGE_SORT_ORDER,
     RESET_SORTING,
     CHANGE_PAGE,
+    CHANGE_ITEMS_PER_PAGE
 } from '../helpers/constants'
 
 
@@ -60,5 +61,12 @@ export function changePage(page){
     return {
         type: CHANGE_PAGE,
         payload: {page}
+    }
+}
+
+export function changeItemsPerPage(itemsPerPage){
+    return {
+        type: CHANGE_ITEMS_PER_PAGE,
+        payload: {itemsPerPage}
     }
 }

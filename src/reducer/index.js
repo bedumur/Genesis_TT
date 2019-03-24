@@ -10,6 +10,7 @@ import {
     CHANGE_SORT_ORDER,
     RESET_SORTING,
     CHANGE_PAGE,
+    CHANGE_ITEMS_PER_PAGE,
     SORT_ORDERS_LIST
 } from '../helpers/constants'
 
@@ -44,7 +45,7 @@ const SortRecord = Record({
 
 const paginationMap = Map({
     currentPage: 1,
-    itemsPerPage: 18
+    itemsPerPage: 25
 });
 
 const editingMap = Map({
@@ -66,6 +67,8 @@ export default (state = new ReducerRecord(), action) => {
     const {type, payload} = action;
 
     switch (type) {
+        case CHANGE_ITEMS_PER_PAGE:
+            return state.setIn(['pagination','itemsPerPage'], payload.itemsPerPage);
         case START_CELL_EDITING:
             return state
                 .setIn(['editing', 'fieldKey'], payload.fieldKey)

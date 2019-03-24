@@ -14,6 +14,5 @@
 * styling table
 * add global filter
 * add display configuration by columns 
-* add items per page choice
 * actions optimization
 * add validation

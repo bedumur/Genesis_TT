@@ -3,10 +3,11 @@ import './styles.scss'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
 import {paginationSelector, entitiesSelector} from '../../../reselect'
-import {changePage} from '../../../AC'
+import {changePage, changeItemsPerPage} from '../../../AC'
+import {ITEMS_PER_PAGE_LIST} from '../../../helpers/constants'
 
 
-const TableFooter = ({totalItemCount, changePage, paginationData: {itemsPerPage, currentPage}}) => {
+const TableFooter = ({totalItemCount, changePage, changeItemsPerPage, paginationData: {itemsPerPage, currentPage}}) => {
 
     const onPageChange = (page) => () => changePage(page);
 
@@ -32,11 +33,28 @@ const TableFooter = ({totalItemCount, changePage, paginationData: {itemsPerPage,
         )
     }
 
+    const itemsPerPageView = (
+        <ul>
+            {ITEMS_PER_PAGE_LIST.map((item, index) => (
+                    <li key={index}
+                        style={{cursor: 'pointer'}}
+                        onClick={() => changeItemsPerPage(item)}
+                    >
+                        {item}
+                    </li>
+                )
+            )}
+        </ul>
+    );
+
     return (
         <tfoot>
         <tr>
             <td>
                 {getPagination()}
+            </td>
+            <td>
+                {itemsPerPageView}
             </td>
         </tr>
         </tfoot>
@@ -50,7 +68,8 @@ TableFooter.propTypes = {
         itemsPerPage: PropTypes.number.isRequired,
         currentPage: PropTypes.number.isRequired
     }),
-    changePage: PropTypes.func
+    changePage: PropTypes.func,
+    changeItemsPerPage: PropTypes.func
 };
 
 export default connect(
@@ -58,5 +77,5 @@ export default connect(
         totalItemCount: entitiesSelector(state).size,
         paginationData: paginationSelector(state)
     }),
-    {changePage}
+    {changePage, changeItemsPerPage}
 )(TableFooter);
