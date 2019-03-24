@@ -6,6 +6,7 @@ import {faSortAlphaUp, faSortAlphaDown} from '@fortawesome/free-solid-svg-icons'
 import {filterValueSelector, sortDataSelector} from '../../reselect'
 import {changeFilterValue, changeSortOrder} from '../../AC'
 import {ASC_SORT_ORDER, DESC_SORT_ORDER} from '../../helpers/constants'
+import {throttle} from '../../helpers/utils'
 
 
 const Filter = ({fieldKey, fieldTitle, ...connectOptions}) => {
@@ -31,7 +32,7 @@ const Filter = ({fieldKey, fieldTitle, ...connectOptions}) => {
         <>
             <label>
                 <input value={connectOptions.value}
-                       onChange={onInputValueChange}
+                       onChange={throttle(onInputValueChange, 150)}
                        type="text"
                        placeholder={`Enter a ${fieldTitle.toLowerCase()}`}
                 />

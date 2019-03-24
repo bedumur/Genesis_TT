@@ -10,7 +10,6 @@
 * add types to editing
 * add types to filtrating
 * add multi select to fields with multi values
-* add throttling to filtration
 * styling table
 * add global filter
 * add display configuration by columns 
