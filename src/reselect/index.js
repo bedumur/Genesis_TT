@@ -52,17 +52,16 @@ function matchEdit(editing, fieldKey, recordId){
 export const rowIdSelector = (_, props) => props.id;
 export const fieldKeySelector = (_, props) => props.fieldKey;
 
-export const stateSelector = state => state;
-export const entitiesSelector = createSelector(stateSelector, state => state.entities);
+export const entitiesSelector = state => state.entities;
 export const recordListSelector = createSelector(entitiesSelector, entities => entities.valueSeq().toArray());
 
-export const filterSelector = createSelector(stateSelector, state => state.filters);
+export const filterSelector = state => state.filters;
 export const filterValueSelector = createSelector(filterSelector, fieldKeySelector, (filters, fieldKey) => filters[fieldKey]);
 
-export const sortDataSelector = createSelector(stateSelector, state => state.sorting);
-export const paginationSelector = createSelector(stateSelector, state => state.pagination.toObject());
+export const sortDataSelector = state => state.sorting;
+export const paginationSelector = state => state.pagination.toObject();
 
-export const editingSelector = createSelector(stateSelector, state => state.editing);
+export const editingSelector = state => state.editing;
 export const cellEditingSelector = createSelector(editingSelector, fieldKeySelector, rowIdSelector, matchEdit);
 
 export const paginatedRecordListSelected = createSelector(recordListSelector, paginationSelector, paginateRecordList);
